@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre_build:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - aws deploy push --application-name ExpressApiApplication --s3-location s3://devmo-devops-express-js-app-bucket/express-api.zip --ignore-hidden-files
+
+artifacts:
+  files:
+    - '**/*'
